@@ -3165,7 +3165,7 @@ void writeAudio(const StorageKey &location, const QByteArray &audio, bool overwr
 	} else if (!overwrite) {
 		return;
 	}
-	EncryptedDescriptor data(sizeof(quint64) * 2 + sizeof(quint32) + sizeof(quint32) + audio.size());
+	EncryptedDescriptor data(sizeof(quint64) * 2 + audio.size());
 	data.stream << quint64(location.first) << quint64(location.second) << audio;
 	FileWriteDescriptor file(i.value().first, FileOption::User);
 	file.writeEncrypted(data);
@@ -3246,7 +3246,7 @@ void writeWebFile(const QString &url, const QByteArray &content, bool overwrite)
 	} else if (!overwrite) {
 		return;
 	}
-	EncryptedDescriptor data(Serialize::stringSize(url) + sizeof(quint32) + sizeof(quint32) + content.size());
+	EncryptedDescriptor data(Serialize::stringSize(url) + content.size());
 	data.stream << url << content;
 	FileWriteDescriptor file(i.value().first, FileOption::User);
 	file.writeEncrypted(data);
